@@ -7,8 +7,8 @@ import messageRouter from "./routes/message.route.js";
 
 dotenv.config();
 
-const app = express();
 const __dirname = path.resolve();
+const app = express();
 
 const PORT = process.env.PORT || 3000;
 
@@ -22,9 +22,9 @@ app.use("/api/messages", messageRouter);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-//   app.get("*", (_, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-//   });
+  app.get("/*splat", (_, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  });
 }
 
-app.listen(3000, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
