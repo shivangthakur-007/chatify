@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
     }
 
     // check if emails valid: regex
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({
@@ -39,8 +39,8 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
-      generateToken(newUser._id, res);
-      await newUser.save();
+      const savedUser = await newUser.save();
+      generateToken(savedUser._id, res);
 
       res.status(201).json({
         _id: newUser._id,
@@ -48,15 +48,14 @@ export const signup = async (req, res) => {
         email: newUser.email,
         profilePic: newUser.profilePic,
       });
-    // send a welcome user 
-    
+      // send a welcome user
     } else {
       res.status(400).json({
         message: "Invalid user data",
       });
     }
   } catch (error) {
-    console.log("Error in signup Controller: ", error)
-    res.status(500).json({message: "Internal Server Error"});
+    console.log("Error in signup Controller: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
