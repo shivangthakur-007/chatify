@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import path from "path";
 
 import authRoute from "./routes/auth.route.js";
@@ -12,6 +13,8 @@ const app = express();
 const PORT = ENV.PORT || 3000;
 
 app.use(express.json());
+app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoute);
