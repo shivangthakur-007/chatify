@@ -21,7 +21,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/messages", messageRouter);
 
 // make ready for deployment
-if (ENV.NODE_ENV === "production") {
+if (ENV.NODE_ENV === "development") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.get("/*splat", (_, res) => {
